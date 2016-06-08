@@ -1,8 +1,8 @@
 ﻿<?php
 	// On se connecte de la BDD
-	$servername = "localhost";
+	$servername = "127.0.0.1";
 	$username = "root";
-	$password = "";
+	$password = "root";
 	$bdd_name = "tp_note_dataviz";
 
 	// Create connection
