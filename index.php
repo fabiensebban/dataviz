@@ -19,23 +19,53 @@
 		    <?php include ('structure/header.php'); ?>
         </div>
 		<div id="content" class="container">
+            <div class="row">
+                <div class="col-md-2">
+
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input id="user_id" placeholder="User ID"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn" id="btn_user_id">GO !</button>
+                    </div>
+                </div>
+
+                <div class="col-md-2"></div>
+
+            </div>
 
             <div class="row">
                 <div class="col-md-2"></div>
-                <div class="col-md-8" style="text-align: center"><h1>Evolution de la popularité</h1></div>
+                <div class="col-md-8" style="text-align: center">
+                    <h1>Exercice 1: Evolution nb d'amis</h1>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <div id="nb_amis_chart"></div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style="text-align: center">
+                    <h1>Exercice 2: Evolution de la popularité</h1>
+                </div>
                 <div class="col-md-2"></div>
             </div>
 
 			<div class="row">
 
                 <div class="col-md-2">
-
-                        <div class="form-group">
-                            <input id="popularite_user_id" placeholder="User ID"/>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn" id="btn_popularite_user_id">GO !</button>
-                        </div>
 
                 </div>
 
@@ -44,7 +74,32 @@
                 </div>
                 <div class="col-md-2"></div>
 			</div>
+
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style="text-align: center">
+                    <h1>Exercice 5: Popularite par sexe</h1>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-md-8">
+                    <div id="popularite_sexe_chart"></div>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-default" id="female">Female</button>
+                    <button class="btn btn-default" id="male">Male</button>
+                </div>
+            </div>
+
 		</div>
+
 		<?php include ('structure/footer.php'); ?>
 	</body>
 </html>

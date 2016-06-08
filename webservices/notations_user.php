@@ -14,12 +14,34 @@
 		
 		$user = $_GET['user'];
 	    $wsChanged = $_GET['wschanged'];
+        $sexe = $_GET['sexe'];
 
-        if($wsChanged == 1)
-        {
-            $query
-                = "SELECT noteur, photo, note, date
+        $query = "SELECT noteur, photo, note, date
                     FROM notations";
+
+        //Pour ex 5
+        if (isset($sexe) && $wsChanged == 1)
+        {
+            $query = $query . "WHERE";
+
+            if ($user != 0) {
+                $query = $query . " WHERE photo IN (" . $user
+                    . ") ORDER BY date ASC";
+            }
+
+            $result = mysqli_query($conn, $query);
+
+            while ($row = mysqli_fetch_array($result)) {
+                $result_request[] = array($row[3], intval($row[2]));
+            }
+
+            mysqli_free_result($result);
+        }
+
+        //Pour ex 2
+        elseif($wsChanged == 1)
+        {
+
             if ($user != 0) {
                 $query = $query . " WHERE photo IN (" . $user
                     . ") ORDER BY date ASC";

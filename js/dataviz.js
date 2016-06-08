@@ -12,28 +12,46 @@
 			callback(data);
 		});
 	}
-	
-	/***************************************
+
+    $('#btn_user_id').click(function(){
+        var userID = $('#user_id').val();
+
+        if(userID != '')
+        {
+            exo1(userID);
+            exo2(userID);
+        }
+    });
+
+    /***************************************
 		QUESTION 1 : PIE CHART : Visite par marque
 	****************************************/
-	getRequest("webservices/infos_user.php?user=2", function(data) {
-		console.log(data);
-	});
+
+    function exo1(userID) {
+
+        $('#nb_amis_chart').empty();
+
+        getRequest("webservices/liste_amis_user.php?user="+ userID, function(data) {
+            var plot1 = $.jqplot('nb_amis_chart', [data], {
+                title:'Default Date Axis',
+                axes:{
+                    xaxis:{
+                        renderer:$.jqplot.DateAxisRenderer,
+                        //tickOptions:{formatString:'%#d %b'},
+                        //tickInterval:'1 day'
+                    }
+                },
+                series:[{lineWidth:4, markerOptions:{style:'square'}}]
+            });
+        });
+    }
 
     /***************************************
      QUESTION 2 : Evolution popularite
      ****************************************/
 
-    $('#btn_popularite_user_id').click(function(){
-        var userID = $('#popularite_user_id').val();
 
-        if(userID != '')
-        {
-            exo(userID);
-        }
-    });
-
-    function exo (userID) {
+    function exo2 (userID) {
         getRequest("webservices/notations_user.php?user=" + userID + "&wschanged=1", function (data) {
 
             $('#popularite_chart').empty();
@@ -52,6 +70,10 @@
         });
     }
 
+
+    /***************************************
+     QUESTION 5 :  Popularite par sexe
+     ****************************************/
 });
 
 

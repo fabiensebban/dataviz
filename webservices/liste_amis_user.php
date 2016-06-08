@@ -13,17 +13,19 @@
 		include("../bdd/connexion_bdd.php");
 		
 		$user = $_GET['user'];
-	
-		$query = "SELECT user1, user2, date
+
+        $query = "SELECT COUNT(*), date
 				FROM relations";
-		if($user != 0) {
-			$query = $query." WHERE user1 IN (".$user.")";
-		}
-		
-		$result = mysqli_query($conn, $query);
-	
-		while ($row = mysqli_fetch_array($result)) {
-			$result_request[] = array(intval($row[0]), intval($row[1]), $row[2]);
+        if($user != 0) {
+            $query = $query." WHERE user1 IN (".$user.")";
+        }
+
+        $query = $query." GROUP BY date ORDER BY date";
+
+        $result = mysqli_query($conn, $query);
+
+        while ($row = mysqli_fetch_array($result)) {
+            $result_request[] = array($row[1], intval($row[0]));
 		}
 
 		mysqli_free_result($result);
