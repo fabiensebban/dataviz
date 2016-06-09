@@ -27,7 +27,8 @@
             exo1(userID);
             exo2(userID);
             exo3(userID);
-            exo5(userID, sexe)
+            exo4(userID);
+            exo5(userID, sexe);
         }
     });
 
@@ -109,86 +110,87 @@
     /***************************************
      QUESTION 4 :  Amis par sexe
      ****************************************/
-    getRequest("webservices/friends_sexe_count.php?user=1", function (data) {
-        var total = data.reduce(function(a, b) {
-          return a + b;
-        });
-
-          var barData = [{
-            'x': 'Female',
-            'y': data[0] * 100 / total
-          }, {
-            'x': 'Male',
-            'y': data[1] * 100 / total
-          }];
-
-        var vis = d3.select('#visualisation'),
-            WIDTH = 1000,
-            HEIGHT = 500,
-            MARGINS = {
-              top: 20,
-              right: 20,
-              bottom: 20,
-              left: 50
-            },
-            xRange = d3.scale.ordinal().rangeRoundBands([MARGINS.left, WIDTH - MARGINS.right], 0.1)
-                             .domain(barData.map(function (d) { return d.x; })),
-
-
-        yRange = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0,
-          d3.max(barData, function (d) {
-            return d.y;
-          })
-        ]),
-
-        xAxis = d3.svg.axis()
-            .scale(xRange)
-            .tickSize(5)
-            .tickSubdivide(true),
-
-        yAxis = d3.svg.axis()
-            .scale(yRange)
-            .tickSize(5)
-            .orient("left")
-            .tickSubdivide(true);
-
-
-        vis.append('svg:g')
-            .attr('class', 'x axis')
-            .attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')')
-            .call(xAxis);
-
-        vis.append('svg:g')
-            .attr('class', 'y axis')
-            .attr('transform', 'translate(' + (MARGINS.left) + ',0)')
-            .call(yAxis);
-
-        vis.selectAll('rect')
-            .data(barData)
-            .enter()
-            .append('rect')
-            .attr('x', function (d) {
-              return xRange(d.x);
-            })
-            .attr('y', function (d) {
-              return yRange(d.y);
-            })
-            .attr('width', xRange.rangeBand())
-            .attr('height', function (d) {
-              return ((HEIGHT - MARGINS.bottom) - yRange(d.y));
-            })
-            .attr('fill', '#F1F1F1')
-            .on('mouseover',function(d){
-              d3.select(this)
-                .attr('fill','#c00000');
-            })
-            .on('mouseout',function(d){
-              d3.select(this)
-                .attr('fill','#F1F1F1');
+    function exo4(userID) {
+        getRequest("webservices/friends_sexe_count.php?user="+userID, function (data) {
+            var total = data.reduce(function(a, b) {
+              return a + b;
             });
 
-    });
+              var barData = [{
+                'x': 'Female',
+                'y': data[0] * 100 / total
+              }, {
+                'x': 'Male',
+                'y': data[1] * 100 / total
+              }];
 
+            var vis = d3.select('#visualisation'),
+                WIDTH = 1000,
+                HEIGHT = 500,
+                MARGINS = {
+                  top: 20,
+                  right: 20,
+                  bottom: 20,
+                  left: 50
+                },
+                xRange = d3.scale.ordinal().rangeRoundBands([MARGINS.left, WIDTH - MARGINS.right], 0.1)
+                                 .domain(barData.map(function (d) { return d.x; })),
+
+
+            yRange = d3.scale.linear().range([HEIGHT - MARGINS.top, MARGINS.bottom]).domain([0,
+              d3.max(barData, function (d) {
+                return d.y;
+              })
+            ]),
+
+            xAxis = d3.svg.axis()
+                .scale(xRange)
+                .tickSize(5)
+                .tickSubdivide(true),
+
+            yAxis = d3.svg.axis()
+                .scale(yRange)
+                .tickSize(5)
+                .orient("left")
+                .tickSubdivide(true);
+
+
+            vis.append('svg:g')
+                .attr('class', 'x axis')
+                .attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')')
+                .call(xAxis);
+
+            vis.append('svg:g')
+                .attr('class', 'y axis')
+                .attr('transform', 'translate(' + (MARGINS.left) + ',0)')
+                .call(yAxis);
+
+            vis.selectAll('rect')
+                .data(barData)
+                .enter()
+                .append('rect')
+                .attr('x', function (d) {
+                  return xRange(d.x);
+                })
+                .attr('y', function (d) {
+                  return yRange(d.y);
+                })
+                .attr('width', xRange.rangeBand())
+                .attr('height', function (d) {
+                  return ((HEIGHT - MARGINS.bottom) - yRange(d.y));
+                })
+                .attr('fill', '#F1F1F1')
+                .on('mouseover',function(d){
+                  d3.select(this)
+                    .attr('fill','#c00000');
+                })
+                .on('mouseout',function(d){
+                  d3.select(this)
+                    .attr('fill','#F1F1F1');
+                });
+
+        });
+    }
     /***************************************
      QUESTION 5 :  Popularite par sexe
      ****************************************/
