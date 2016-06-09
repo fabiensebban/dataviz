@@ -99,6 +99,26 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8" style="text-align: center">
+                    <h1>Exercice 4: Pourcentage d’amis masculin et féminin</h1>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-md-8">
+                    <svg id="visualisation" width="1000" height="500"></svg>
+                </div>
+
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style="text-align: center">
                     <h1>Exercice 5: Popularite par sexe</h1>
                 </div>
                 <div class="col-md-2"></div>
