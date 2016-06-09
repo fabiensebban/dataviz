@@ -15,16 +15,24 @@
 
     $('#btn_user_id').click(function(){
         var userID = $('#user_id').val();
+        var sexe = "1";
+
+        if ($("#female").prop("checked"))
+        {
+            sexe = "0";
+        }
 
         if(userID != '')
         {
             exo1(userID);
             exo2(userID);
+            exo3(userID);
+            exo5(userID, sexe)
         }
     });
 
     /***************************************
-		QUESTION 1 : PIE CHART : Visite par marque
+		QUESTION 1 : Evolution nombre d'amis
 	****************************************/
 
     function exo1(userID) {
@@ -33,12 +41,10 @@
 
         getRequest("webservices/liste_amis_user.php?user="+ userID, function(data) {
             var plot1 = $.jqplot('nb_amis_chart', [data], {
-                title:'Default Date Axis',
+                title:'Evolution nombre d\'amis',
                 axes:{
                     xaxis:{
-                        renderer:$.jqplot.DateAxisRenderer,
-                        //tickOptions:{formatString:'%#d %b'},
-                        //tickInterval:'1 day'
+                        renderer:$.jqplot.DateAxisRenderer
                     }
                 },
                 series:[{lineWidth:4, markerOptions:{style:'square'}}]
@@ -58,7 +64,7 @@
 
             var line1 = data;
             var plot1 = $.jqplot('popularite_chart', [line1], {
-                title: 'Popularite',
+                title: 'Evolution popularite',
                 axes: {
                     xaxis: {
                         renderer:$.jqplot.DateAxisRenderer,
@@ -70,10 +76,68 @@
         });
     }
 
+    /***************************************
+     QUESTION 3 : Pourcentage message envoyé a amis et non amis
+     ****************************************/
+
+    function exo3 (userID) {
+        getRequest("webservices/messages_user.php?user=" + userID + "&wschanged=1", function (data) {
+
+            $('#msg_envoye').empty();
+
+            var line1 = data;
+            var plot1 = jQuery.jqplot ('msg_envoye', [data],
+                {
+                    seriesDefaults: {
+                        // Make this a pie chart.
+                        renderer: jQuery.jqplot.PieRenderer,
+                        rendererOptions: {
+                            // Turn off filling of slices.
+                            fill: true,
+                            showDataLabels: true,
+                            // Add a margin to seperate the slices.
+                            sliceMargin: 4,
+                            // stroke the slices with a little thicker line.
+                            lineWidth: 5
+                        }
+                    },
+                    legend: { show:true, location: 'e' }
+                });
+        });
+    }
 
     /***************************************
      QUESTION 5 :  Popularite par sexe
      ****************************************/
+
+    function exo5 (userID, sexe) {
+
+        getRequest("webservices/notations_user.php?user=" + userID + "&wschanged=1&sexe=" + sexe, function (data) {
+
+            $('#popularite_sexe_chart').empty();
+
+            var data = data;
+            var plot2 = jQuery.jqplot('popularite_sexe_chart', [data],
+                {
+                    seriesDefaults: {
+                        renderer: jQuery.jqplot.PieRenderer,
+                        rendererOptions: {
+                            // Turn off filling of slices.
+                            fill: true,
+                            showDataLabels: true,
+                            // Add a margin to seperate the slices.
+                            sliceMargin: 4,
+                            // stroke the slices with a little thicker line.
+                            lineWidth: 5
+                        }
+                    },
+                    legend: {show: true, location: 'e'}
+                });
+            });
+
+        };
+
+
 });
 
 

@@ -14,20 +14,32 @@
 		
 		$user = $_GET['user'];
 	
-		$query = "SELECT emetteur, destinataire
-				FROM messages";
-		if($user != 0) {
+		$query = "SELECT * FROM messages";
+
+        $query2 = "SELECT destinataire, count(*) messages FROM messages m
+                    JOIN relations r on m.emetteur=".$user."
+                        AND m.destinataire=r.user2
+                    group by m.destinataire";
+
+        if($user != 0) {
 			$query = $query." WHERE emetteur IN (".$user.")";
 		}
 		
 		$result = mysqli_query($conn, $query);
-	
-		while ($row = mysqli_fetch_array($result)) {
-			$result_request[] = array(intval($row[0]), intval($row[1]));
-		}
+		$result2 = mysqli_query($conn, $query2);
 
-		mysqli_free_result($result);
-	
+        $total_messages = mysqli_num_rows($result);
+        $messages_amis = mysqli_num_rows($result2);
+
+        $messages_non_amis = intval($total_messages) - intval($messages_amis);
+
+        $result_request = array(
+                            array("Msg a amis",intval($messages_amis)), array("Msg a NON amis",intval($messages_non_amis))
+                        );
+
+		mysqli_free_result($result1);
+		mysqli_free_result($result2);
+
 		// Déconnexion de la BDD
 		include("../bdd/deconnexion_bdd.php");
 	}
@@ -36,3 +48,4 @@
 	echo json_encode($result_request);
 
 ?>
+

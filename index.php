@@ -13,6 +13,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         <script type="text/javascript" src="js/dataviz.js"></script>
         <script type="text/javascript" src="js/renderer/jqplot.dateAxisRenderer.js"></script>
+        <script type="text/javascript" src="js/renderer/jqplot.pieRenderer.js"></script>
 	</head>
 	<body>
         <div class="page-header">
@@ -75,6 +76,25 @@
                 <div class="col-md-2"></div>
 			</div>
 
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style="text-align: center">
+                    <h1>Exercice 3: Pourcentage messages envoyés à amis et non amis</h1>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-md-8">
+                    <div id="msg_envoye"></div>
+                </div>
+
+                <div class="col-md-2"></div>
+            </div>
 
             <div class="row">
                 <div class="col-md-2"></div>
@@ -93,8 +113,8 @@
                     <div id="popularite_sexe_chart"></div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-default" id="female">Female</button>
-                    <button class="btn btn-default" id="male">Male</button>
+                    <input type="radio" name="sexe" id="female" value="0" checked>Female</button>
+                    <input type="radio" name="sexe" id="male" value="1" >Male</button>
                 </div>
             </div>
 
