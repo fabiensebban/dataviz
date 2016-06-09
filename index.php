@@ -14,6 +14,7 @@
         <script type="text/javascript" src="js/dataviz.js"></script>
         <script type="text/javascript" src="js/renderer/jqplot.dateAxisRenderer.js"></script>
         <script type="text/javascript" src="js/renderer/jqplot.pieRenderer.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
 	</head>
 	<body>
         <div class="page-header">
