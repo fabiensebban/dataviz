@@ -14,8 +14,8 @@
 		
 		$user = $_GET['user'];
 
-        $female = array();
-        $male = array();
+        $female = array(0, 0, 0);
+        $male = array(0, 0, 0);
 
 		$query1 = " SELECT sexe, count(*) AS count FROM relations
                    JOIN utilisateurs ON user2 = id WHERE user1 = " . $user . "
@@ -33,37 +33,38 @@
 		$result1 = mysqli_query($conn, $query1);
         $result2 = mysqli_query($conn, $query2);
         $result3 = mysqli_query($conn, $query3);
+
+
         //tranche 18-21
         while ($row = mysqli_fetch_array($result1)) {
             if ($row[0] == 0){
-                $female[] = (intval($row[1]))? intval($row[1]) : 0;
+                $female[0] = intval($row[1]);
             }
             else {
-                $male[] = intval($row[1]);
+                $male[0] = intval($row[1]);
             }
         }
 
         //tranche 22 - 25
         while ($row = mysqli_fetch_array($result2)) {
             if ($row[0] == 0){
-                $female[] = (intval($row[1]))? intval($row[1]) : 0;
+                $female[1] = intval($row[1]);
             }
             else {
-                $male[] = intval($row[1]);
+                $male[1] = intval($row[1]);
             }
-            $cnt++;
         }
 
         //tranche 26 - 29
         while ($row = mysqli_fetch_array($result3)) {
             if ($row[0] == 0){
-                $female[] = intval($row[1])? intval($row[1]) : 0;
+                $female[2] = intval($row[1]);
 
             }
             else {
-                $male[] = intval($row[1]);
+                $male[2] = intval($row[1]);
             }
-        }die;
+        }
 
 		mysqli_free_result($result);
 
