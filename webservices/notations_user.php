@@ -13,9 +13,15 @@
 		include("../bdd/connexion_bdd.php");
 		
 		$user = $_GET['user'];
-	    $wsChanged = $_GET['wschanged'];
-        $sexe = $_GET['sexe'];
+	    $wsChanged = 0;
 
+        if(isset($_GET['wschanged'])) {
+            $wsChanged = $_GET['wschanged'];
+        }
+
+        if(isset($_GET['sexe'])) {
+            $sexe = $_GET['sexe'];
+        }
         $query = "SELECT noteur, photo, note, date
                     FROM notations";
 

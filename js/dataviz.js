@@ -225,7 +225,7 @@
     /***************************************
      QUESTION 6 :  Répartition des amis par tranche d'age
      ****************************************/
-    function exo5 (userID, sexe) {
+    function exo6 (userID, sexe) {
 
         getRequest("webservices/notations_user.php?user=" + userID + "&wschanged=1&sexe=" + sexe, function (data) {
 

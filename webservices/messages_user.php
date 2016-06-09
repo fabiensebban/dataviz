@@ -25,10 +25,10 @@
 			$query = $query." WHERE emetteur IN (".$user.")";
 		}
 		
-		$result = mysqli_query($conn, $query);
+		$result1 = mysqli_query($conn, $query);
 		$result2 = mysqli_query($conn, $query2);
 
-        $total_messages = mysqli_num_rows($result);
+        $total_messages = mysqli_num_rows($result1);
         $messages_amis = mysqli_num_rows($result2);
 
         $messages_non_amis = intval($total_messages) - intval($messages_amis);
