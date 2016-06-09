@@ -56,7 +56,6 @@
      QUESTION 2 : Evolution popularite
      ****************************************/
 
-
     function exo2 (userID) {
         getRequest("webservices/notations_user.php?user=" + userID + "&wschanged=1", function (data) {
 
@@ -109,6 +108,7 @@
     /***************************************
      QUESTION 4 :  Amis par sexe
      ****************************************/
+
     getRequest("webservices/friends_sexe_count.php?user=1", function (data) {
         var total = data.reduce(function(a, b) {
           return a + b;
@@ -220,7 +220,62 @@
 
         };
 
+    /***************************************
+     QUESTION 6 :  Répartition des amis par tranche d'age
+     ****************************************/
+    function exo5 (userID, sexe) {
 
+        getRequest("webservices/notations_user.php?user=" + userID + "&wschanged=1&sexe=" + sexe, function (data) {
+
+            $('#popularite_sexe_chart').empty();
+
+            var data = data;
+
+            var s1 = [200, 600, 700, 1000];
+            var s2 = [460, -210, 690, 820];
+            var s3 = [-260, -440, 320, 200];
+            // Can specify a custom tick Array.
+            // Ticks should match up one for each y value (category) in the series.
+            var ticks = ['18-21', '22-25', '26-29'];
+
+            var plot1 = $.jqplot('chart1', [s1, s2, s3], {
+                // The "seriesDefaults" option is an options object that will
+                // be applied to all series in the chart.
+                seriesDefaults:{
+                    renderer:$.jqplot.BarRenderer,
+                    rendererOptions: {fillToZero: true}
+                },
+                // Custom labels for the series are specified with the "label"
+                // option on the series option.  Here a series option object
+                // is specified for each series.
+                series:[
+                    {label:'Female'},
+                    {label:'Male'}
+                ],
+                // Show the legend and put it outside the grid, but inside the
+                // plot container, shrinking the grid to accomodate the legend.
+                // A value of "outside" would not shrink the grid and allow
+                // the legend to overflow the container.
+                legend: {
+                    show: true,
+                    placement: 'outsideGrid'
+                },
+                axes: {
+                    // Use a category axis on the x axis and use our custom ticks.
+                    xaxis: {
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        ticks: ticks
+                    },
+                    // Pad the y axis just a little so bars can get close to, but
+                    // not touch, the grid boundaries.  1.2 is the default padding.
+                    yaxis: {
+                        pad: 1.05,
+                        tickOptions: {formatString: '$%d'}
+                    }
+                }
+            });
+        });
+    }
 });
 
 

@@ -138,6 +138,26 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style="text-align: center">
+                    <h1>Exercice 6: Répartition des amis par tranche d'age</h1>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                </div>
+
+                <div class="col-md-8">
+                    <div id="repartition_amis"></div>
+                </div>
+
+                <div class="col-md-2">
+                </div>
+            </div>
 		</div>
 
 		<?php include ('structure/footer.php'); ?>
