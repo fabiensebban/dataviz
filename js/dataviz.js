@@ -29,6 +29,7 @@
             exo3(userID);
             exo4(userID);
             exo5(userID, sexe);
+            exo6(userID);
         }
     });
 
@@ -225,22 +226,21 @@
     /***************************************
      QUESTION 6 :  Répartition des amis par tranche d'age
      ****************************************/
-    function exo6 (userID, sexe) {
+    function exo6 (userID) {
 
-        getRequest("webservices/notations_user.php?user=" + userID + "&wschanged=1&sexe=" + sexe, function (data) {
+        getRequest("webservices/infos_user.php?user=" + userID , function (data) {
 
-            $('#popularite_sexe_chart').empty();
+            $('#repartition_amis').empty();
 
             var data = data;
 
-            var s1 = [200, 600, 700, 1000];
-            var s2 = [460, -210, 690, 820];
-            var s3 = [-260, -440, 320, 200];
+            var female = data[0];
+            var male = data[1];
             // Can specify a custom tick Array.
             // Ticks should match up one for each y value (category) in the series.
             var ticks = ['18-21', '22-25', '26-29'];
 
-            var plot1 = $.jqplot('chart1', [s1, s2, s3], {
+            var plot1 = $.jqplot('repartition_amis', [female, male], {
                 // The "seriesDefaults" option is an options object that will
                 // be applied to all series in the chart.
                 seriesDefaults:{
