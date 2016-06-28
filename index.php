@@ -1,169 +1,112 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Data Vizualisation - TP1</title>
-		<!-- Inclusion CSS (librairie + perso) -->
-		<link rel="stylesheet" type="text/css" href="css/jquery.jqplot.min.css">
-		<link rel="stylesheet" type="text/css" href="css/dataviz.css">
-		
-		<!-- Inclusion JS (librairie + scripts de création de graph) -->
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/jquery.jqplot.min.js"></script>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="js/dataviz.js"></script>
-        <script type="text/javascript" src="js/renderer/jqplot.dateAxisRenderer.js"></script>
-        <script type="text/javascript" src="js/renderer/jqplot.pieRenderer.js"></script>
-        <script type="text/javascript" src="js/renderer/jqplot.categoryAxisRenderer.js"></script>
-        <script type="text/javascript" src="js/renderer/jqplot.barRenderer.js"></script>
-        <script type="text/javascript" src="js/renderer/jqplot.pointLabels.js"></script>
-        <script src="http://d3js.org/d3.v3.min.js"></script>
-	</head>
-	<body>
-        <div class="page-header">
-		    <?php include ('structure/header.php'); ?>
-        </div>
-		<div id="content" class="container">
-            <div class="row">
-                <div class="col-md-2">
+  <head>
+    <title>Statistiques de l'utilisateur</title>
+    <!-- Inclusion CSS (librairie + perso) -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.jqplot.min.css">
+    <link rel="stylesheet" type="text/css" href="css/dataviz.css">
+  </head>
+  <body>
+    <?php include ('structure/header.php'); ?>
 
+    <div class="container">
+      <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bhoechie-tab-container">
+                      <input id="user_id" placeholder="User ID"/>
+          <button class="btn" id="btn_user_id">GO !</button>
+            </div>
+      </div>
+
+    	<div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 bhoechie-tab-container">
+                <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3 bhoechie-tab-menu">
+                  <div class="list-group">
+                    <a id="main-tab" href="#" class="list-group-item active text-center" data-id="1">
+                      <h4 class="fa fa-users"></h4><br/>Amis
+                    </a>
+                    <a href="#" class="list-group-item text-center" data-id="2">
+                      <h4 class="fa fa-fire"></h4><br/>Popularité
+                    </a>
+                    <a href="#" class="list-group-item text-center" data-id="3">
+                      <h4 class="fa fa-envelope-o"></h4><br/>messages envoyés
+                    </a>
+                    <a href="#" class="list-group-item text-center" data-id="4">
+                      <h4 class="fa fa-transgender"></h4><br/>Sexe amis
+                    </a>
+                    <a href="#" class="list-group-item text-center" data-id="5">
+                      <h4 class="fa fa-thumbs-o-up"></h4><br/>Popularite par sexe
+                    </a>
+                    <a href="#" class="list-group-item text-center" data-id="6">
+                      <h4 class="fa fa-venus-mars"></h4><br/>Popularite par sexe
+                    </a>
+                  </div>
                 </div>
-
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <input id="user_id" placeholder="User ID"/>
+                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bhoechie-tab">
+                    <!-- flight section -->
+                    <div class="bhoechie-tab-content active">
+                        <center>
+                          <div id="nb_amis_chart">
+                            <h1 class="fa fa-frown-o" style="font-size:12em;color:#55518a"></h1>
+                            <h2 style="margin-top: 0;color:#55518a">Pas de donnés</h2>
+                            <h3 style="margin-top: 0;color:#55518a">Merci de choisir un utilisateur</h3>                            
+                          </div>
+                        </center>
                     </div>
-                    <div class="form-group">
-                        <button class="btn" id="btn_user_id">GO !</button>
+                    <!-- train section -->
+                    <div class="bhoechie-tab-content">
+                        <center>
+                          <div id="popularite_chart">
+                            <h1 class="fa fa-frown-o" style="font-size:12em;color:#55518a"></h1>
+                            <h2 style="margin-top: 0;color:#55518a">Pas de donnés</h2>
+                            <h3 style="margin-top: 0;color:#55518a">Merci de choisir un utilisateur</h3>                            
+                          </div>
+                        </center>
+                    </div>
+        
+                    <!-- hotel search -->
+                    <div class="bhoechie-tab-content">
+                        <center>
+                          <div id="msg_envoye">
+                            <h1 class="fa fa-frown-o" style="font-size:12em;color:#55518a"></h1>
+                            <h2 style="margin-top: 0;color:#55518a">Pas de donnés</h2>
+                            <h3 style="margin-top: 0;color:#55518a">Merci de choisir un utilisateur</h3>                            
+                          </div>
+                        </center>
+                    </div>
+                    <div class="bhoechie-tab-content">
+                        <center>
+                          <svg id="visualisation" width="1000" height="500"></svg>
+                        </center>
+                    </div>
+                    <div class="bhoechie-tab-content">
+                        <center>
+                          <div id="popularite_sexe_chart">
+                            <h1 class="fa fa-frown-o" style="font-size:12em;color:#55518a"></h1>
+                            <h2 style="margin-top: 0;color:#55518a">Pas de donnés</h2>
+                            <h3 style="margin-top: 0;color:#55518a">Merci de choisir un utilisateur</h3>                            
+                          </div>
+                        </center>
+                        <div class="col-md-12">
+                            <input type="radio" name="sexe" id="female" value="0" checked>Female</button>
+                            <input type="radio" name="sexe" id="male" value="1" >Male</button>
+                        </div>
+                    </div>
+                    <div class="bhoechie-tab-content">
+                        <center>
+                          <div id="repartition_amis">
+                            <h1 class="fa fa-frown-o" style="font-size:12em;color:#55518a"></h1>
+                            <h2 style="margin-top: 0;color:#55518a">Pas de donnés</h2>
+                            <h3 style="margin-top: 0;color:#55518a">Merci de choisir un utilisateur</h3>                            
+                          </div>
+                        </center>
                     </div>
                 </div>
-
-                <div class="col-md-2"></div>
-
             </div>
+      </div>
+    </div>
 
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" style="text-align: center">
-                    <h1>Exercice 1: Evolution nb d'amis</h1>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-2">
-                </div>
-                <div class="col-md-8">
-                    <div id="nb_amis_chart"></div>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" style="text-align: center">
-                    <h1>Exercice 2: Evolution de la popularité</h1>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-			<div class="row">
-
-                <div class="col-md-2">
-
-                </div>
-
-                <div class="col-md-8">
-                    <div id="popularite_chart"></div>
-                </div>
-                <div class="col-md-2"></div>
-			</div>
-
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" style="text-align: center">
-                    <h1>Exercice 3: Pourcentage messages envoyés à amis et non amis</h1>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-2">
-                </div>
-
-                <div class="col-md-8">
-                    <div id="msg_envoye"></div>
-                </div>
-
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" style="text-align: center">
-                    <h1>Exercice 4: Pourcentage d’amis masculin et féminin</h1>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-2">
-                </div>
-
-                <div class="col-md-8">
-                    <svg id="visualisation" width="1000" height="500"></svg>
-                </div>
-
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" style="text-align: center">
-                    <h1>Exercice 5: Popularite par sexe</h1>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-2">
-                </div>
-
-                <div class="col-md-8">
-                    <div id="popularite_sexe_chart"></div>
-                </div>
-                <div class="col-md-2">
-                    <input type="radio" name="sexe" id="female" value="0" checked>Female</button>
-                    <input type="radio" name="sexe" id="male" value="1" >Male</button>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8" style="text-align: center">
-                    <h1>Exercice 6: Répartition des amis par tranche d'age</h1>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-2">
-                </div>
-
-                <div class="col-md-8">
-                    <div id="repartition_amis"></div>
-                </div>
-
-                <div class="col-md-2">
-                </div>
-            </div>
-		</div>
-
-		<?php include ('structure/footer.php'); ?>
-	</body>
+    <?php include ('structure/footer.php'); ?>
+  </body>
 </html>

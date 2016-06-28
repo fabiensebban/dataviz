@@ -2,8 +2,8 @@
 	// On se connecte de la BDD
 	$servername = "127.0.0.1";
 	$username = "root";
-	$password = "root";
-	$bdd_name = "tp_note_dataviz";
+	$password = "";
+	$bdd_name = "data_viz";
 
 	// Create connection
 	$conn = mysqli_connect($servername, $username, $password, $bdd_name);

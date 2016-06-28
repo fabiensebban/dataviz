@@ -1,4 +1,50 @@
 ﻿$(document).ready(function(){
+    /* tabs js */
+    $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+
+        var userID = $('#user_id').val();
+        if(userID == '')
+            {
+                e.stopPropagation();
+                return false;
+            }
+
+        var id = $(this).data('id');
+
+        switch (id) {
+          case 1:
+            exo1(userID);
+            break;
+          case 2:
+            exo2(userID);
+            break;
+          case 3:
+            exo3(userID);
+            break;
+          case 4:
+            exo4(userID);
+            break;
+          case 5:
+            var sexe = "1";
+            if ($("#female").prop("checked"))
+            {
+                sexe = "0";
+            }
+            exo5(userID, sexe);
+            break;
+          case 6:
+            exo6(userID);
+            break;
+        }
+        
+        var index = $(this).index();
+        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+    });
+
 	// Pas de cache sur les requête IMPORTANT !
 	$.ajaxSetup({ cache: false });
 	
@@ -14,22 +60,14 @@
 	}
 
     $('#btn_user_id').click(function(){
-        var userID = $('#user_id').val();
-        var sexe = "1";
+        $("div.bhoechie-tab-menu>div.list-group>a").siblings('a.active').removeClass("active");
+        $("#main-tab").addClass("active");
 
-        if ($("#female").prop("checked"))
-        {
-            sexe = "0";
-        }
+        var userID = $('#user_id').val();
 
         if(userID != '')
         {
             exo1(userID);
-            exo2(userID);
-            exo3(userID);
-            exo4(userID);
-            exo5(userID, sexe);
-            exo6(userID);
         }
     });
 
@@ -40,7 +78,6 @@
     function exo1(userID) {
 
         $('#nb_amis_chart').empty();
-
         getRequest("webservices/liste_amis_user.php?user="+ userID, function(data) {
             var plot1 = $.jqplot('nb_amis_chart', [data], {
                 title:'Evolution nombre d\'amis',
@@ -116,6 +153,7 @@
             var total = data.reduce(function(a, b) {
               return a + b;
             });
+            console.log(total);
 
               var barData = [{
                 'x': 'Female',
@@ -155,7 +193,7 @@
                 .orient("left")
                 .tickSubdivide(true);
 
-
+                console.log(vis);
             vis.append('svg:g')
                 .attr('class', 'x axis')
                 .attr('transform', 'translate(0,' + (HEIGHT - MARGINS.bottom) + ')')
@@ -271,8 +309,7 @@
                     // Pad the y axis just a little so bars can get close to, but
                     // not touch, the grid boundaries.  1.2 is the default padding.
                     yaxis: {
-                        pad: 1.05,
-                        tickOptions: {formatString: '$%d'}
+                        padMin: 0
                     }
                 }
             });
