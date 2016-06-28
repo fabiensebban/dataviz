@@ -1,4 +1,5 @@
 ﻿<?php
+<<<<<<< HEAD
     // Le tableau de résultat
     $result_request = array();
     
@@ -16,6 +17,27 @@
         $female = array(0, 0, 0);
         $male = array(0, 0, 0);
         $query1 = " SELECT sexe, count(*) AS count FROM relations
+=======
+	// Le tableau de résultat
+	$result_request = array();
+	
+	/*
+		On teste si le paramètre GET existe
+		0 -> tous les utilisateurs
+		id_unique -> un seul utilisateur
+		plusieurs id séparés par des virgules -> plusieurs utilisateurs
+	*/
+	if(isset($_GET['user'])) {
+		// Connexion à la BDD
+		include("../bdd/connexion_bdd.php");
+		
+		$user = $_GET['user'];
+
+        $female = array(0, 0, 0);
+        $male = array(0, 0, 0);
+
+		$query1 = " SELECT sexe, count(*) AS count FROM relations
+>>>>>>> f9486ec3b071bd83f27b012aea05a64ddfb4466a
                    JOIN utilisateurs ON user2 = id WHERE user1 = " . $user . "
                    AND utilisateurs.age BETWEEN 18 AND 21 GROUP BY sexe";
         $query2 = " SELECT sexe, count(*) AS count FROM relations
@@ -27,6 +49,8 @@
         $result1 = mysqli_query($conn, $query1);
         $result2 = mysqli_query($conn, $query2);
         $result3 = mysqli_query($conn, $query3);
+
+
         //tranche 18-21
         while ($row = mysqli_fetch_array($result1)) {
             if ($row[0] == 0){
@@ -49,14 +73,23 @@
         while ($row = mysqli_fetch_array($result3)) {
             if ($row[0] == 0){
                 $female[2] = intval($row[1]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> f9486ec3b071bd83f27b012aea05a64ddfb4466a
             }
             else {
                 $male[2] = intval($row[1]);
             }
         }
+<<<<<<< HEAD
         mysqli_free_result($result1);
         mysqli_free_result($result2); 
         mysqli_free_result($result3);
+=======
+
+		mysqli_free_result($result);
+>>>>>>> f9486ec3b071bd83f27b012aea05a64ddfb4466a
 
         $result_request = array( $female,$male );
         // Déconnexion de la BDD

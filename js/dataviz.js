@@ -149,6 +149,9 @@
      ****************************************/
 
     function exo4(userID) {
+
+        $('#visualisation').empty();
+
         getRequest("webservices/friends_sexe_count.php?user="+userID, function (data) {
             var total = data.reduce(function(a, b) {
               return a + b;
